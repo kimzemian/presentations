@@ -29,7 +29,7 @@ Presentation by
 * Goal: minimize perforative risk: model loss on the distribution it induces. {.fragment .fade-in-then-semi-out}
 * Previous work: induced data distribution depends only on the deployed model. {.fragment .fade-in-then-semi-out}
 * Too simplistic?<span class="fragment"> dependence on the “state”</span>{.fragment .fade-in-then-semi-out} 
-* Example: credit score <img src="credit.jpg" alt="drawing" width="200" align= "right"/> {.fragment .fade-in-then-semi-out} 
+* Example: credit score <img src="images/credit.jpg" alt="drawing" width="200" align= "right"/> {.fragment .fade-in-then-semi-out} 
 * Contribution: meta algorithm{.fragment .fade-in} 
 
 
@@ -93,9 +93,9 @@ Under reasonable regularity conditions on D, if we define theta_t ≡ theta$ for
 
 <!-- .slide: data-transition="slide" data-background="#000000" data-background-transition="zoom" -->
 ## How do we do it?
-![](derivative.png) {.fragment .fade-in}
+![](images/derivative.png) {.fragment .fade-in}
  
-![](helpers.png) {.fragment .fade-in}
+![](images/helpers.png) {.fragment .fade-in}
 
 <aside class="notes">
 There are two unknown quantities in this expression: μ∗(θ) and dμ∗
@@ -106,8 +106,8 @@ There are two unknown quantities in this expression: μ∗(θ) and dμ∗
 <!-- .slide: data-transition="slide" data-background="#000000" data-background-transition="zoom" -->
 
 ## How do we do it?
-![](alg1.png){.fragment .fade-in-then-semi-out}
-![](alg2.png){.fragment .fade-in-then-semi-out}
+![](images/alg1.png){.fragment .fade-in-then-semi-out}
+![](images/alg2.png){.fragment .fade-in-then-semi-out}
 
 <aside class="notes">
 Algorithm 2 estimates the derivatives of m using finite difference approximations gathered from the optimization trajectory so far.
@@ -119,7 +119,7 @@ Algorithm 2 estimates the derivatives of m using finite difference approximation
 
 ## How do we do it?
 
-![](alg3.png){.fragment .fade-in-then-semi-out}
+![](images/alg3.png){.fragment .fade-in-then-semi-out}
 
 ---
 
@@ -147,10 +147,10 @@ estimate the derivative ∂1m ̄ . This is a derivative with respect to ds varia
 ## experiments
 <div style="text-align: left"> spam classification: </div>
 
-![](spammer.png)
+![](images/spammer.png)
 <sup><sup>![](meanspam.png)</sup></sup>
 
-![](graph.png)
+![](images/graph.png)
 
 <sub> Reference:[Strategic classification](https://arxiv.org/pdf/1506.06980.pdf) </sub>
 
