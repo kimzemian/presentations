@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>VSCode Reveal intro</title>
+
+  <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+  <meta name="author" content="Hakim El Hattab">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/reveal.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- highlight Theme -->
+  
+  <link rel="stylesheet" href="libs/highlight.js/11.3.1/styles/monokai.min.css">
+  
+	
+		
+	<link rel="stylesheet" href="libs/reveal.js/4.3.1/plugin/chalkboard/style.css">
+	
+	
+	
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/plugin/customcontrols/style.css">
+  
+	
+
+
+
+  <!-- Revealjs Theme -->
+  
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/theme/moon.css" id="theme">
+  
+  
+
+  <link rel="stylesheet" href="libs/styles/tasklist.css">
+	<link rel="stylesheet" href="libs/styles/iota.css">
+	<link rel="stylesheet" href="libs/styles/layout.css">
+
+
+  <!-- Revealjs Theme -->
+  
+
+   <!-- css list -->
+	
+
+   
+
+</head>
+
+<body>
+
+   
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      
+
+
+    
+        <section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
+            
+            <style type="text/css">
+  .reveal p {
+    text-align: left;
+  }
+  .reveal ul {
+    display: block;
+  }
+  .reveal ol {
+    display: block;
+  }
+  .reveal .r-stack .m0{
+    margin:0;
+  }
+</style>
+<!-- .slide: data-transition="slide" data-background="#b5533c" data-background-transition="zoom"--> 
+<h2>How to Learn when Data Gradually Reacts to Your Model</h2>
+<p>paper by Zachary Izzo, James Zou, Lexing Ying</p>
+<p>Presentation by Kimia Kazemian</p>
+<p>31/10/2022</p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>what is this about?</h2>
+<ul>
+<li class="fragment fade-in-then-semi-out">Problem: training ML models in the performative setting.</li>
+<li class="fragment fade-in-then-semi-out">Goal: minimize perforative risk: model loss on the distribution it induces.</li>
+<li class="fragment fade-in-then-semi-out">Previous work: induced data distribution depends only on the deployed model.</li>
+<li class="fragment fade-in-then-semi-out">Too simplistic?<span class="fragment"> dependence on the “state”</span></li>
+<li class="fragment fade-in-then-semi-out">Example: credit score <img src="credit.jpg" alt="drawing" width="200" align= "right"/></li>
+<li class="fragment fade-in">Contribution: meta algorithm</li>
+</ul>
+<aside class="notes">
+i.e. when the data distribution reacts to the deployed model
+the scenario in which our deployed model or algorithm effects the distribution of the data or population which we are studying
+<p>GOAL: A model favorable data distribution and performs well on the induced distribution</p>
+<p>Previous Work: Assumes that the data distribution immediately adapts to the deployed model</p>
+<p>In practice, however, this may not be the case, as the population may take time to adapt to the model. In many applications, the data distribution depends on BOTH the currently deployed ML model and on the “state” that the population was in before the model was deployed</p>
+<p>BANK loans: people with more credit lines open are more likely to repay their loans. distribution of the outcome has changed,</p>
+<p>BANK:so we can expect the distribution to change grad- ually as applicants have more time to adapt, before finally settling to some steady-state distribution</p>
+</aside>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>Problem setup</h2>
+<!-- <ul>
+    <li>$D : \theta × M(Z) → M(Z)$</li>
+    <li>$\Theta$: set of admissible model parameters, $Z$: data sample space.</li>
+    <li>$M(Z)$: set of probability measures on $Z$.</li>
+    <li>
+        <span>$\rho_t = D(\theta_t, \rho_{t−1}).$</span>
+        <span>$\mu_t=m(\theta_t,\mu_{t-1})</span>
+    </li>
+    <li>
+        <span>$\rho_∗(\theta) = \underset{t\to\infty} {lim}  \rho_t \hspace{0.5em} where $\hspace{0.5em}\theta_t ≡ \theta \hspace{0.5em}$ for all $t$$</span>
+        <span>$\mu_*=\underset{k \to \infty}{lim} \hspace{0.5em} m^{(k)}(\theta,\mu_{k-1})$</span>
+    </li>
+    <li>$\theta_{OPT}=\underset{\theta \in \Theta}{argmin \hspace{0.5em}} \mathcal{L}^*(\theta)$</li>
+    <li>Assume $\rho_t$ belongs to a parametric family with parameter $\\mu_t$ and density $p(.,\mu_t)$</li>
+</ul> -->
+<!-- <li><div class="r-stack"><span class="fragment fade-in-then-semi-out m0" data-fragment-index="1">
+</span><span class="fragment fade-in-then-semi-out m0" data-fragment-index="2">
+ </span><span class="fragment fade-in-then-semi-out m0" data-fragment-index="3">
+ </span><span class="fragment fade-in-then-semi-out m0" data-fragment-index="4">
+ </span><span class="fragment fade-in-then-semi-out m0" data-fragment-index="5">
+<span class="fragment fade-out m0" data-fragment-index="6"></span><span class="fragment m0 fade-in" data-fragment-index="6"></span></div></li>
+<li class="fragment" data-fragment-index="0"></li> -->
+<aside class="notes">
+note: We assume that there is a distribution map
+note: If rho_t denotes the data distribution at time t and theta_t denotes the model that we deploy at time t, then we have
+Under reasonable regularity conditions on D, if we define theta_t ≡ theta$ for all t, then there exists a limiting distribution
+</aside>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>Problem setup</h2>
+<ul>
+<li class="fragment fade-in-then-semi-out">Assume $\theta,\mu \in \mathbb{R}^d$</li>
+<li class="fragment fade-in-then-semi-out">$\partial_i f$ denotes derivative wrt $i$th argument</li>
+<li class="fragment fade-in-then-semi-out">$\psi_t = [\theta_t^\top, \mu_t^\top] ^\top$ denotes the full input to $m$ at time $t$, and for any collection of vectors $v_i, v_{i:j}$ denotes the matrix with columns $v_i, v_{i+1}, …, v_j$.</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section data-transition="slide" data-background="#000000" data-background-transition="zoom">
+            
+            <!-- .slide: data-transition="slide" data-background="#000000" data-background-transition="zoom" -->
+<h2>How do we do it?</h2>
+<p class="fragment fade-in"><img src="derivative.png" alt=""></p>
+<p class="fragment fade-in"><img src="helpers.png" alt=""></p>
+<aside class="notes">
+There are two unknown quantities in this expression: μ∗(θ) and dμ∗
+</aside>
+            </section>
+    
+
+
+
+    
+        <section data-transition="slide" data-background="#000000" data-background-transition="zoom">
+            
+            <!-- .slide: data-transition="slide" data-background="#000000" data-background-transition="zoom" -->
+<h2>How do we do it?</h2>
+<p><img src="alg1.png" alt="" class="fragment fade-in-then-semi-out">
+<img src="alg2.png" alt="" class="fragment fade-in-then-semi-out"></p>
+<aside class="notes">
+Algorithm 2 estimates the derivatives of m using finite difference approximations gathered from the optimization trajectory so far.
+</aside>
+            </section>
+    
+
+
+
+    
+        <section data-transition="slide" data-background="#000000" data-background-transition="zoom">
+            
+            <!-- .slide: data-transition="slide" data-background="#000000" data-background-transition="zoom" -->
+<h2>How do we do it?</h2>
+<p><img src="alg3.png" alt="" class="fragment fade-in-then-semi-out"></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>low dimensional statistics?</h2>
+<ul>
+<li class="fragment fade-in-then-semi-out">
+<p>Observation: individuals modify their behavior based on a low- dimensional proxy, such as a credit score or classification probability</p>
+</li>
+<li class="fragment fade-in-then-semi-out">
+<p>How can we apply stateful PerfGD for a high-dimensional model without incurring a large error due to the high dimension?</p>
+</li>
+<li class="fragment fade-in-then-semi-out">
+<p>$\mu_t = m(\theta_t,\mu_{t-1})= \bar{m}(s(\theta_t,\mu_{t-1}),\mu_{t-1})$
+$s(\theta,\mu)\in \mathbb{R}^{d_s}$ and $d_s \ll dim(\theta)$</p>
+</li>
+<li class="fragment fade-in-then-semi-out">
+<p>$\partial_1 s(\theta_t,\mu_{t-1})=\partial_1 \bar{m}(s_t,\mu_{t-1})\partial s(\theta_t,\mu_{t-1})$</p>
+</li>
+</ul>
+<aside class="notes">
+Unless the population being model consists mostly of data scientists, it is unlikely that the constituent individuals will have a reaction based on the particular parameters of the model
+<p>DISTRIBUTION SHIFT DEPENDS ON LOW DIMENSIONAL STATISTICS,</p>
+<p>s is KNOWN
+computing ∂1s(θt, μt−1) just requires estimating μt−1
+estimate the derivative ∂1m ̄ . This is a derivative with respect to ds variables, whereas in general for this step we must compute a derivative with respect to dim(θ) variables.</p>
+</aside>
+            </section>
+    
+
+
+
+    
+        <section data-transition="slide" data-background="#000000" data-background-transition="zoom">
+            
+            <!-- .slide: data-transition="slide" data-background="#000000" data-background-transition="zoom" -->
+<h2>experiments</h2>
+<ul>
+<li>spam classification</li>
+</ul>
+<p><img src="spammer.png" alt=""></p>
+<p><img src="meanspam.png" alt=""></p>
+<img src="graph.png" width="500" align= "right"/> 
+<aside class="notes">
+Each spammer has some original message, denoted by the features xorig, that they would like to send. This should not be thought of as an actual saved message, but rather encoding the information (e.g. a virus, scam, etc.) that they want to deliver to their victims. Their message also has a current form, denoted by the features xcur
+The utility corresponds to the spammers’ desire to receive a negative (non-spam) classification from our deployed logistic model.
+</aside>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>what else?</h2>
+<ul>
+<li>societal impacts: <a href="https://arxiv.org/abs/2106.12705">this paper</a> possibly maximize a certain measure of negative externality</li>
+</ul>
+<aside class="notes">
+When the population in question consists of people, this amounts to trying to induce these people to behave in a way which makes them easy to classify, which may not align with behaviors that benefit these people the most. Indeed, it has been observed that in some cases, such a procedure can maximize a certain measure of negative externality (Jagadeesan et al., 2021). However, manipulation of the data distribution also has the capability to produce the opposite effect, i.e., inducing a data distribution which is advantageous both for the modeled population and the modeler.
+</aside>
+<ul>
+<li>
+<p>future work: what are our assumptions?</p>
+<ul>
+<li class="fragment fade-in-then-semi-out">
+<p>deterministic MDP</p>
+</li>
+<li class="fragment fade-in-then-semi-out">
+<p>batch setting</p>
+</li>
+</ul>
+</li>
+</ul>
+<aside class="notes">
+highly structured Markov decision process, but relaxing some of the assumptions on the underlying MDP is of interest for improving the practical efficacy of this setting, and offers the potential for connections with reinforcement learning
+ur current method works in the batch setting where we have enough samples to accurately estimate population-level quantities. Developing methods that can work in a stochastic/limited sample regime is also of interest.
+</aside>
+            </section>
+    
+
+
+    </div>
+
+
+  </div>
+
+  <div class="line top"></div>
+  <div class="line bottom"></div>
+  <div class="line left"></div>
+  <div class="line right"></div>
+
+  <script src="libs/reveal.js/4.3.1/reveal.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/math/math.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/fullscreen/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/animate/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/animate/svg.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/Chart.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3/d3.v3.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3.patch.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3/queue.v1.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3/topojson.v1.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/function-plot.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/customcontrols/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/embed-tweet/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/chart/chart.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/chart/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/verticator/verticator.js"></script>
+
+<script src="libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/menu/menu.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/chalkboard/plugin.js"></script>
+
+<!--	<script src="libs/reveal.js/4.3.1/plugin/audio-slideshow/plugin.js"></script>  -->
+<!--	<script src="libs/reveal.js/4.3.1/plugin/audio-slideshow/recorder.js"></script>-->
+<!--	<script src="libs/reveal.js/4.3.1/plugin/audio-slideshow/RecordRTC.js"></script>-->
+
+  
+
+<script>
+  const printPlugins = [
+      RevealNotes,
+      RevealHighlight,
+      RevealMath.MathJax3,
+      RevealAnimate,
+      RevealChalkboard, 
+			RevealEmbedTweet,
+			RevealChart,
+		];
+
+		const plugins =  [...printPlugins,
+		RevealZoom, 
+		RevealSearch, 
+				RevealMarkdown, 
+				RevealMenu, 
+				RevealFullscreen,
+				RevealAnything,
+				//RevealAudioSlideshow,
+				//RevealAudioRecorder,
+				RevealCustomControls, 
+				// poll
+				// question
+				// seminar
+				Verticator 
+				 ]
+
+
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+      controlsTutorial: true,
+      controlsLayout: 'bottom-right',
+      controlsBackArrows: 'faded',
+      progress: true,
+      slideNumber: false,
+      //#showSlideNumber "all" "print" "speaker"
+      hash: true, //# hash: false,
+      //# respondToHashChanges: true,
+      //# history: false,
+      keyboard: true,
+      //#keyboardCondition: null,
+      overview: true,
+      center: true,
+      touch: true,
+      loop: false,
+      rtl: false,
+      //#navigationMode: 'default', linear grid
+      shuffle: false,
+      fragments: true,
+      fragmentInURL: false,
+      embedded: false,
+      help: true,
+      //#pause: true
+      showNotes: false,
+      autoPlayMedia: false, // TODO fix this to a nullable value
+      //#preloadIframes: null. true false
+      //#autoAnimate: true
+      //#autoAnimateMatcher: null,
+      //#autoAnimateEasing: 'ease',
+      //autoAnimateDuration: 1.0,
+      //#autoAnimateUnmatched: true
+      //#autoAnimateStyles: []
+      autoSlide: 0, // TODO fix this to a falseable value
+      autoSlideStoppable: true,
+      autoSlideMethod: '0',
+      defaultTiming: 120,
+      mouseWheel: false,
+      //#previewLinks: false
+      //#postMessage: true, // TODO : this can cause issues with the vscode api ???
+      //#postMessageEvents: false,
+      //#focusBodyOnPageVisibilityChange: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      //#pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
+      //#pdfSeparateFragments: true,
+      //#pdfPageHeightOffset: -1,
+      viewDistance: 3,
+      //#mobileViewDistance: 2,
+      display: 'block',
+      //#hideInactiveCursor: true,
+      //#hideCursorTime: 5000
+
+      // Parallax Background
+      parallaxBackgroundImage: '',
+      parallaxBackgroundSize: '',
+      parallaxBackgroundHorizontal: 0,
+      parallaxBackgroundVertical: 0,
+
+      //Presentation Size
+      width: 960,
+			height: 700,
+			margin: 0.2,
+      minScale: 0.2,
+      maxScale: 2,
+      disableLayout: false,
+
+      audio: {
+        prefix: 'audio/', // audio files are stored in the "audio" folder
+        suffix: '.ogg', // audio files have the ".ogg" ending
+        textToSpeechURL: null, // the URL to the text to speech converter
+        defaultNotes: false, // use slide notes as default for the text to speech converter
+        defaultText: false, // use slide text as default for the text to speech converter
+        advance: 0, // advance to next slide after given time in milliseconds after audio has played, use negative value to not advance
+        autoplay: false, // automatically start slideshow
+        defaultDuration: 5, // default duration in seconds if no audio is available
+        defaultAudios: true, // try to play audios with names such as audio/1.2.ogg
+        playerOpacity: 0.05, // opacity value of audio player if unfocused
+        playerStyle: 'position: fixed; bottom: 4px; left: 25%; width: 50%; height:75px; z-index: 33;', // style used for container of audio controls
+        startAtFragment: false, // when moving to a slide, start at the current fragment or at the start of the slide
+      },
+      
+      chalkboard: { // font-awesome.min.css must be available
+        //src: "chalkboard/chalkboard.json",
+        storage: "chalkboard-demo",
+      },
+      
+			customcontrols: {
+					controls: [
+      						{
+						  id: 'toggle-overview',
+						  title: 'Toggle overview (O)',
+						  icon: '<i class="fa fa-th"></i>',
+						  action: 'Reveal.toggleOverview();'
+						}
+						,
+      {
+        icon: '<i class="fa fa-pen-square"></i>',
+        title: 'Toggle chalkboard (B)',
+        action: 'RevealChalkboard.toggleChalkboard();'
+      },
+      {
+        icon: '<i class="fa fa-pen"></i>',
+        title: 'Toggle notes canvas (C)',
+        action: 'RevealChalkboard.toggleNotesCanvas();'
+      }
+      
+				]
+			},
+			chart: {
+					defaults: { 
+						color: 'lightgray', // color of labels
+						scale: { 
+							beginAtZero: true, 
+							ticks: { stepSize: 1 },
+							grid: { color: "lightgray" } , // color of grid lines
+						},
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ] }, 
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+			},
+			math: {
+				mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				// pass other options into `MathJax.Hub.Config()`
+				TeX: { Macros: { RR: "{\\bf R}" } }
+				},
+				anything: [ 
+				{
+		className: "plot",
+		defaults: {width:500, height: 500, grid:true},
+		initialize: (function(container, options){ options.target = "#"+container.id; functionPlot(options) })
+	 },
+	 {
+		className: "chart",  
+		initialize: (function(container, options){ container.chart = new Chart(container.getContext("2d"), options);  })
+	 },
+	 {
+		className: "anything",
+		initialize: (function(container, options){ if (options && options.initialize) { options.initialize(container)} })
+	 },
+					],
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: (window.location.search.match(/print-pdf/gi) ? printPlugins : plugins ) 
+		});
+			
+
+
+	    // Change chalkboard theme : 
+		function changeTheme(input) {
+			var config = {};
+			config.theme = input.value;
+			Reveal.getPlugin("RevealChalkboard").configure(config);
+			input.blur();
+		}
+
+		// // Handle the message inside the webview
+        // window.addEventListener('message', event => {
+
+        //     const message = event.data; // The JSON data our extension sent
+
+        //     switch (message.command) {
+        //         case 'refactor':
+        //             Reveal.toggleHelp();
+        //     }
+        // });
+
+		if (window.location.search.match(/print-pdf-now/gi)) {
+      		setTimeout(() => {
+				window.print();
+			  }, 2500);
+			
+    }
+</script>
+
+</body>
+
+</html>
